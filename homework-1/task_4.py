@@ -7,7 +7,7 @@ def find_missed(a):
     if not isinstance(a, list):
         raise TypeError("Input must be a list!")
 
-    return sum([i for i in range(0, len(a) + 1)]) - sum(a)
+    return sum(range(0, len(a) + 1)) - sum(a)
 
 
 def find_missed_xor(a):

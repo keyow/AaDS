@@ -72,6 +72,7 @@ class Task6Tests(unittest.TestCase):
         self.assertTrue(validate_sudoku_rapid(sudoku, 3))
 
         sudoku[5][5] = 4
+        sudoku[5][6] = 4
         self.assertFalse(validate_sudoku_rapid(sudoku, 3))
 
 

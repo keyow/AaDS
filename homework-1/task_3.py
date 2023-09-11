@@ -7,4 +7,4 @@ def denominator_fact_sum(n):
     return numerator / denominator
 
 
-print(denominator_fact_sum(5))
+print(denominator_fact_sum(4))
