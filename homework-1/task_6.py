@@ -1,6 +1,6 @@
 def validate_sudoku_solution(field, n):
     """
-    Validates the sudoku field.
+    Validates the sudoku field. Field must be
     Time complexity: O(N^2)
     Space complexity: O(1)
     :param n: Sudoku inner field size.
@@ -143,4 +143,3 @@ def validate_sudoku_rapid(field, n):
             checker = 0
 
     return True
-

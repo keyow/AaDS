@@ -1,6 +1,8 @@
 def find_missed(a):
     """
-    Complexity: O(n)
+    Find the missed number inside an array.
+    Space complexity: O(1)
+    Time complexity: O(N)
     :param a: List, containing all numbers from 0 to n instead of one.
     :return: Missed number.
     """
@@ -13,7 +15,8 @@ def find_missed(a):
 def find_missed_xor(a):
     """
     Using xor of all elements and xor of all numbers from 0 to n. Xor of these two xors is the missed number.
-    Complexity: O(n).
+    Space complexity: O(1)
+    Time complexity: O(N).
     :param a: List, containing all numbers from 0 to n instead of one.
     :return: Missed number.
     """

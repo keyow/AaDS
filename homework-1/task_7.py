@@ -1,6 +1,7 @@
 def mul_others(a):
     """
-    Complexity: O(n)
+    Time complexity: O(N)
+    Space complexity: O(N)
     :param a: Numbers list.
     :return: List. Every number of list is the multiplication of other numbers from that list.
     """
