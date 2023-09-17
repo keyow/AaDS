@@ -15,4 +15,4 @@ def denominator_fact_sum(n):
     return numerator / denominator
 
 
-print(denominator_fact_sum(4))
+print(denominator_fact_sum(1))
