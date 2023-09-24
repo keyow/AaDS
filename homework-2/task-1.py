@@ -15,4 +15,4 @@ def sublist_sum(arr, m):
     return result
 
 
-print(sublist_sum([1, 6, 78, 12, 5], 3))
+print(sublist_sum([1, 2, 3], 3))

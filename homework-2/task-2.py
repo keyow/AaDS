@@ -16,4 +16,4 @@ def find_max_brace_seq(seq):
     return result
 
 
-print(find_max_brace_seq("(()(()))"))
+print(find_max_brace_seq(")(((()"))

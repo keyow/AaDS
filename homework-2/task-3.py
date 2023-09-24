@@ -47,7 +47,7 @@ def reverse_from_second(node):
 
 head = Node(randint(0, 10))
 cur_node = head
-for i in range(4):
+for i in range(25):
     new_node = Node(randint(0, 10))
     cur_node.next = new_node
     cur_node = new_node
