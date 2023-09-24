@@ -16,6 +16,7 @@ def find_min(arr):
             for i in range(left, mid):
                 if arr[i] < minimal:
                     minimal = arr[i]
+                    break
             if minimal == arr[0]:
                 left = mid
                 continue
@@ -40,3 +41,5 @@ print(find_min([1, 3, 4, 5, 6, 7, 8, 9]))
 print(find_min([7, 10, 2, 4, 5, 6]))
 print(find_min([0, 5, 5, 5, 5, 5]))
 print(find_min([5, 2, 3, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5]))
+print(find_min([2, 2, 2, 0, 1]))
+print(find_min([5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1, 2, 3, 5, 5, 5, 5, 5, 5, 5]))
