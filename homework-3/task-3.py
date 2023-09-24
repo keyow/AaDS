@@ -1,7 +1,7 @@
 def find_min(arr):
     """
     Initial array is shifted by N (N is unknown)
-    Time complexity: O(N / 2)
+    Time complexity: O(log(N))
     :return: minimal element
     """
     if not arr:
