@@ -101,3 +101,12 @@ example = [
     int("00000001", 2)   # 1 byte mode
 ]
 print(validate_unicode(example))
+
+# Invalid
+example = [
+    int("11110000", 2),  # 4 byte mode
+    int("11100010", 2),  # 3 byte mode << error
+    int("10000001", 2),  # byte 2
+    int("10000001", 2),  # byte 3
+]
+print(validate_unicode(example))
