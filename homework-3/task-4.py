@@ -110,3 +110,12 @@ example = [
     int("10000001", 2),  # byte 3
 ]
 print(validate_unicode(example))
+
+# Valid
+example = [
+    int("010110101011011110000", 2),  # 4 byte mode: 0101101010110 | 11110000
+    int("010011011010000001", 2),  # byte 2
+    int("0110000001", 2),  # byte 3
+    int("111010000001", 2)   # byte 4
+]
+print(validate_unicode(example))
