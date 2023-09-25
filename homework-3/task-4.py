@@ -16,7 +16,7 @@ def validate_unicode(arr):
             if mode != 0 and counter < mode - 1:
                 return False
             counter = 0
-            if code & 128 == 0:       # 0*******
+            if code & 128 == 0:      # 0*******
                 mode = 1
             elif code & 224 == 192:  # 110*****
                 mode = 2
