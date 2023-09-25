@@ -16,15 +16,15 @@ def validate_unicode(arr):
             if mode != 0 and counter < mode - 1:
                 return False
             counter = 0
-            if code & 80 == 0:
+            if code & 128 == 0:       # 0*******
                 mode = 1
-            elif code & 224 == 192:
+            elif code & 224 == 192:  # 110*****
                 mode = 2
-            elif code & 240 == 224:
+            elif code & 240 == 224:  # 1110****
                 mode = 3
-            elif code & 248 == 240:
+            elif code & 248 == 240:  # 11110***
                 mode = 4
-        elif code & 192 == 128:
+        elif code & 192 == 128:      # 10******
             if mode == 0:
                 return False
             counter += 1
