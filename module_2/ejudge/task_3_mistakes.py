@@ -83,6 +83,7 @@ class MistakeResolver:
             return [lower_case_word]
 
         results = []
+        # print('BEGIN!!!')
         for first_letter in self.__trie.root.children:
             # print('\n-------------------------')
             # print('WORD:', word, 'NEXT PREFIX:', self.__trie.root.children[first_letter].label)
@@ -90,7 +91,7 @@ class MistakeResolver:
                           prev_row=current_row)
         return results
 
-    def __search(self, node, word, results, max_distance, prev_row, prev_prev_row=None):
+    def __search(self, node, word, results, max_distance, prev_row, prev_prev_row=None, prev_letter=None):
         current_trie_prefix = node.label
 
         current_row = [prev_row[0] + 1]  # adding a new row
@@ -106,7 +107,11 @@ class MistakeResolver:
                     replace_cost += 1
 
                 if prev_prev_row and col > 1:
-                    if word[col - 1] == current_trie_prefix[row - 2] and word[col - 2] == current_trie_prefix[row - 1]:
+                    # print("TRANSPOSE SUSPECTED")
+                    # print('PREV PREFIX LETTER: ', prev_letter)
+                    # print('CUR PREFIX LETTER: ', current_trie_prefix[row - 1])
+                    if word[col - 1] == prev_letter and word[col - 2] == current_trie_prefix[row - 1]:
+                        # print('TRANSPOSED CASE')
                         transpose_cost = prev_prev_row[col - 2] + 1
                         current_row.append(min(insert_cost, delete_cost, replace_cost, transpose_cost))
                         continue
@@ -116,22 +121,25 @@ class MistakeResolver:
                 prev_prev_row = prev_row
                 prev_row = current_row
                 current_row = [prev_row[0] + 1]  # adding a new row
-                # print('AFTER:')
-                # print('PREV_PREV_ROW: ', prev_prev_row)
-                # print('PREV_ROW', prev_row)
-                # print('CURRENT_ROW', current_row)
+
+        # print('AFTER:')
+        # print('PREV_PREV_ROW: ', prev_prev_row)
+        # print('PREV_ROW', prev_row)
+        # print('CURRENT_ROW', current_row)
 
         if node.full_word:
+            # print('FULL WORD!')
             if 0 < current_row[-1] <= max_distance:
                 # print('COST:', current_row[-1])
                 results.append(node.full_word)
         if min(current_row) <= max_distance:  # Иначе нет смысла продолжать вычисления
             for next_first_letter in node.children:
-                # print('-------------------------')
+                # print('----NEXT----')
                 # print('WORD:', word, 'NEXT PREFIX:', node.children[next_first_letter].label)
                 self.__search(node.children[next_first_letter], word, results, max_distance,
                               prev_row=current_row,
-                              prev_prev_row=prev_row)
+                              prev_prev_row=prev_row,
+                              prev_letter=current_trie_prefix[-1])
 
     # def __search(self, node, word, results, max_distance, prev_row, prev_prev_row=None, prev_letter=None):
     #     current_row = [prev_row[0] + 1]
