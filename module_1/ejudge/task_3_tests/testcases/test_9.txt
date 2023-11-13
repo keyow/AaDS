@@ -1,0 +1,10 @@
+hacked
+a b c d e f hacked hacked g
+o hacked
+a o c
+
+
+c e \n
+
+e hacked
+b a b c d e f g
