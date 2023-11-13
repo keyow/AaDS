@@ -13,6 +13,7 @@ class CompactTrie:
         self.root = CompactTrieNode()
 
     def insert(self, word):
+        # print('\nADDING: ', word)
         if not word:
             return
 
@@ -26,7 +27,10 @@ class CompactTrie:
         i = 0
         j = 0
         while True:
+            # print('I', i, 'J', j)
+            # print('CUR NODE LABEL: ', cur_node.label)
             if word[i] != cur_node.label[j]:
+                # print("SPLITTING!")
                 # Tearing the prefix piece off
                 node = CompactTrieNode(cur_node.label[j:])
                 if cur_node.full_word:
@@ -53,6 +57,7 @@ class CompactTrie:
                 cur_node = cur_node.children[word[i]]
                 j = 0
             elif i == len(word) and j < len(cur_node.label):
+                # print('HERE!! CUTING!')
                 # Tearing the prefix piece off
                 node = CompactTrieNode(cur_node.label[j:], word=cur_node.full_word)
                 node.children = cur_node.children
@@ -108,8 +113,12 @@ class MistakeResolver:
 
                 if prev_prev_row and col > 1:
                     # print("TRANSPOSE SUSPECTED")
+                    # print('CUR WORD LETTER: ', word[col - 1])
+                    # print('PREV WORD LETTER: ', word[col - 2])
                     # print('PREV PREFIX LETTER: ', prev_letter)
                     # print('CUR PREFIX LETTER: ', current_trie_prefix[row - 1])
+                    if row > 1:
+                        prev_letter = current_trie_prefix[row - 2]
                     if word[col - 1] == prev_letter and word[col - 2] == current_trie_prefix[row - 1]:
                         # print('TRANSPOSED CASE')
                         transpose_cost = prev_prev_row[col - 2] + 1
