@@ -1,5 +1,6 @@
 import sys
 
+
 class CompactTrieNode:
     def __init__(self, label=None, word=None):
         self.label = label
@@ -50,6 +51,7 @@ class CompactTrie:
                     cur_node.children[word[i]] = node
                     return
                 cur_node = cur_node.children[word[i]]
+                j = 0
             elif i == len(word) and j < len(cur_node.label):
                 # Tearing the prefix piece off
                 node = CompactTrieNode(cur_node.label[j:], word=cur_node.full_word)
@@ -57,6 +59,7 @@ class CompactTrie:
                 cur_node.label = cur_node.label[:j]
                 cur_node.children = {node.label[0]: node}
                 cur_node.full_word = word
+                j = 0
                 return
             elif i == len(word) and j == len(cur_node.label):
                 cur_node.full_word = word
@@ -81,7 +84,7 @@ class MistakeResolver:
 
         results = []
         for first_letter in self.__trie.root.children:
-            # print('-------------------------')
+            # print('\n-------------------------')
             # print('WORD:', word, 'NEXT PREFIX:', self.__trie.root.children[first_letter].label)
             self.__search(self.__trie.root.children[first_letter], lower_case_word, results, max_distance,
                           prev_row=current_row)
@@ -91,6 +94,9 @@ class MistakeResolver:
         current_trie_prefix = node.label
 
         current_row = [prev_row[0] + 1]  # adding a new row
+        # print('PREV_PREV_ROW: ', prev_prev_row)
+        # print('PREV_ROW', prev_row)
+        # print('CURRENT_ROW', current_row)
         for row in range(1, len(current_trie_prefix) + 1):
             for col in range(1, len(word) + 1):
                 insert_cost = current_row[col - 1] + 1
@@ -110,6 +116,7 @@ class MistakeResolver:
                 prev_prev_row = prev_row
                 prev_row = current_row
                 current_row = [prev_row[0] + 1]  # adding a new row
+                # print('AFTER:')
                 # print('PREV_PREV_ROW: ', prev_prev_row)
                 # print('PREV_ROW', prev_row)
                 # print('CURRENT_ROW', current_row)
@@ -120,9 +127,37 @@ class MistakeResolver:
                 results.append(node.full_word)
         if min(current_row) <= max_distance:  # Иначе нет смысла продолжать вычисления
             for next_first_letter in node.children:
+                # print('-------------------------')
+                # print('WORD:', word, 'NEXT PREFIX:', node.children[next_first_letter].label)
                 self.__search(node.children[next_first_letter], word, results, max_distance,
                               prev_row=current_row,
                               prev_prev_row=prev_row)
+
+    # def __search(self, node, word, results, max_distance, prev_row, prev_prev_row=None, prev_letter=None):
+    #     current_row = [prev_row[0] + 1]
+    #
+    #     for col in range(1, len(word) + 1):
+    #         insert_cost = current_row[col - 1] + 1
+    #         delete_cost = prev_row[col] + 1
+    #         replace_cost = prev_row[col - 1]
+    #         if word[col - 1] != letter:
+    #             replace_cost += 1
+    #
+    #         if prev_prev_row and col > 1:
+    #             if word[col - 1] == prev_letter and word[col - 2] == letter:
+    #                 transpose_cost = prev_prev_row[col - 2] + 1
+    #                 current_row.append(min(insert_cost, delete_cost, replace_cost, transpose_cost))
+    #                 continue
+    #         current_row.append(min(insert_cost, delete_cost, replace_cost))
+    #
+    #     if node.word:
+    #         if 0 < current_row[-1] <= max_distance:
+    #             results.append(node.word)
+    #     if min(current_row) <= max_distance:
+    #         prev_letter = letter
+    #         for letter in node.children:
+    #             self.__search(node.children[letter], letter, word, results, max_distance,
+    #                           prev_row=current_row, prev_prev_row=prev_row, prev_letter=prev_letter)
 
 
 if __name__ == '__main__':
