@@ -132,9 +132,9 @@ class MistakeResolver:
 
         for word in wordlist:
             lower_case_word = word.lower()
-            self.wordlist.add(lower_case_word)
-            if word not in wordlist:
+            if lower_case_word not in self.wordlist:
                 self.__trie.insert(lower_case_word)
+            self.wordlist.add(lower_case_word)
 
     def candidates(self, word, max_distance=1):
         """
